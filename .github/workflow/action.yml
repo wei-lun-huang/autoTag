@@ -1,0 +1,29 @@
+name: Auto Tag When PR To Master
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set Git Config
+        run: |
+          git config --global user.email "weilun.huang@gogolook.com"
+          git config --global user.name "wei-lun-huang"
+      - name: Create Git Tag
+        if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pr_title="${{ github.event.pull_request.title }}"
+          pr_body=$(echo "${{ github.event.pull_request.body }}" | grep -oP 'RC-\d+')
+          git tag -a "$pr_title" -m "$pr_body"
+          git push origin "$pr_title"
