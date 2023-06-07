@@ -35,4 +35,4 @@ jobs:
             exit 0
           fi
           git tag -a "$pr_title" -m "$pr_body"
-          # git push origin "$pr_title"
+          git push origin "$pr_title"
