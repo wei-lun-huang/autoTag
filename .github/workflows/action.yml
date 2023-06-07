@@ -27,4 +27,4 @@ jobs:
           pr_title="${{ github.event.pull_request.title }}"
           pr_body=$(echo "${{ github.event.pull_request.body }}" | grep -oP 'RC-\d+')
           git tag -a "$pr_title" -m "$pr_body"
-          git push origin "$pr_title"
+          # git push origin "$pr_title"
