@@ -19,7 +19,7 @@ jobs:
           git config --global user.email "weilun.huang@gogolook.com"
           git config --global user.name "wei-lun-huang"
       - name: Create Git Tag
-        if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
+        if: github.event.pull_request.merged == true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
