@@ -1,15 +1,12 @@
 name: Auto Tag When PR To Master
 
-# on:
-#   push:
-#     branches: [ "master" ]
-#   pull_request:
-#     types:
-#       - closed
 on:
+  push:
+    branches: [ "master" ]
   pull_request:
-    branches:
-      - master
+    types:
+      - closed
+
 
 jobs:
   tag:
