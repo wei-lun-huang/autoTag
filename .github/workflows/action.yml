@@ -1,12 +1,6 @@
 name: Auto Tag When PR To Master
 
 on:
-  # push:
-  #   branches:
-  #     - master
-  # pull_request:
-  #   branches:
-  #     - master
   pull_request_target:
     types:
       - closed
@@ -29,15 +23,6 @@ jobs:
         if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
         run: |
           pr_title="${{ github.event.pull_request.title }}"
-          # if [[ -z "$pr_title" ]]; then
-          #   echo "PR title is empty, skipping tag creation."
-          #   exit 0
-          # fi
           pr_body=$(echo "${{ github.event.pull_request.body }}" | grep -oP 'RC-\d+')
-          # if [[ -z "$pr_body" ]]; then
-          #   echo "PR body is empty, skipping tag creation."
-          #   exit 0
-          # fi
           git tag -a "$pr_title" -m "$pr_body"
-          # git push origin "$pr_title"
           git push origin --tags
