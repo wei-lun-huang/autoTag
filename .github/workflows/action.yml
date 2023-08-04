@@ -57,7 +57,7 @@ jobs:
   #         git tag -a "$pr_title" -m "$pr_body"
   #         git push origin --tags
   tag:
-    name: AutoTag
+    name: autoTag
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
     runs-on: ubuntu-latest
     steps:
