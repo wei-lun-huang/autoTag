@@ -19,7 +19,7 @@ on:
       - develop
       - release
       - master
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
