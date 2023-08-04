@@ -73,7 +73,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pr_title="${{ github.event.pull_request.title }}"
-          if [[ ! $pr_title =~ ^v[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ ! $pr_title =~ ^v\d+\.\d+\.\d+$ ]]; then
             echo "Error: Invalid PR title format"
             exit 1
           else
