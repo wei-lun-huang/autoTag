@@ -74,6 +74,7 @@ jobs:
         run: |
           pr_title="${{ github.event.pull_request.title }}"
           echo "PR title: $pr_title"
+
           if ! [[ $pr_title =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Error: Invalid PR title format"
             exit 1
