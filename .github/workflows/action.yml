@@ -34,11 +34,31 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: echo
         run: echo "${{ github.event.pull_request.base.ref}}"
+  # tag:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # - name: Checkout code
+  #     #   uses: actions/checkout@v2
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+  #     - name: Set Git Config
+  #       run: |
+  #         git config --global user.email "weilun.huang@gogolook.com"
+  #         git config --global user.name "wei-lun-huang"
+  #     - name: Create Git Tag
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+  #       run: |
+  #         pr_title="${{ github.event.pull_request.title }}"
+  #         pr_body=$(echo "${{ github.event.pull_request.body }}" | grep -oP 'RC-\d+')
+  #         git tag -a "$pr_title" -m "$pr_body"
+  #         git push origin --tags
   tag:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -49,9 +69,10 @@ jobs:
       - name: Create Git Tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+        # if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
         run: |
           pr_title="${{ github.event.pull_request.title }}"
           pr_body=$(echo "${{ github.event.pull_request.body }}" | grep -oP 'RC-\d+')
           git tag -a "$pr_title" -m "$pr_body"
           git push origin --tags
+
