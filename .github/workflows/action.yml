@@ -27,6 +27,7 @@ on:
 jobs:
   preJob:
     name: preJob
+    if: github.event.action == 'opened' || github.event.action == 'synchronize'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
