@@ -25,9 +25,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  preJob:
+    name: preJob
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: echo
+        run: echo "${{ github.event.pull_request.base.ref}}"
   tag:
     runs-on: ubuntu-latest
-
     steps:
       # - name: Checkout code
       #   uses: actions/checkout@v2
